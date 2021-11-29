@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <header>
+    <p class="mb-5 display-6 fw-bold text-center title">Index Page</p>
+
+    <div class="d-flex justify-content-between">
+      {% if user.emp_grade == "leader" %}
+        <form action="{% url 'duties:new' %}" method="POST">
+          {% csrf_token %}
+          <div class="row">
+            <p class="mb-0 col-9">
+              <input type="text" name="month" placeholder="달을 입력하세요." class="form-control">
+            </p>
+            <button id="update-btn" class="btn btn-outline-danger fw-bold col-3" type="submit">확인</button>
+          </div>
+        </form>
+      {% endif %}
+
+      <div class="d-flex justify-content-end">
+        {% if request.user.is_authenticated %}
+          <p><a id="update-btn" class="btn btn-outline-success fw-bold" href="{% url 'articles:index' %}" role="button">속닥속닥</a></P>
+
+          <p><a id="update-btn" class="btn btn-outline-success fw-bold mx-2" href="{% url 'accounts:profile' user.pk %}" role="button">프로필</a></P>
+
+          <form action="{% url 'accounts:logout' %}" method="POST">
+            {% csrf_token %}
+            <button id="account-btn" class="btn btn-outline-danger fw-bold" type="submit">로그아웃</button>
+          </form>
+        {% else %}
+          {% comment %} <p><a class="btn btn-outline-primary mx-2" href="{% url 'accounts:login' %}" role="button">로그인</a></P>
+          <p><a class="btn btn-outline-primary ms-2" href="{% url 'accounts:signup' %}" role="button">회원가입</a></P> {% endcomment %}
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <hr class="mt-3 mb-5">
+
+  <section class="mb-5">
+    <a id="update-btn" class="btn btn-outline-danger fw-bold" href="{% url 'duties:index' %}?{{ prev_month }}"><span>이전 달</span></a>
+    <a id="update-btn" class="btn btn-outline-danger fw-bold" href="{% url 'duties:index' %}?{{ next_month }}"><span>다음 달</span></a>
+    <div class="d-flex justify-content-between mb-3">
+      {{ calendar }}
+    </div>
+  </section>
+{% endblock content %}

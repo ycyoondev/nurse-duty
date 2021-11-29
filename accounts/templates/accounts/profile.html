@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}  
+
+  <header>
+    <p class="display-6 fw-bold text-center title">Profile</p>
+
+    <div class="d-flex justify-content-end">
+      <p><a id="account-btn" class="btn btn-outline-success fw-bold" href="{% url 'accounts:update' %}" role="button">회원정보 수정</a></P>
+
+      <p><a id="update-btn" class="btn btn-outline-success fw-bold mx-2" href="{% url 'duties:index' %}" role="button">뒤로 가기</a></P>
+    </div>
+  </header>
+
+  <hr class="mt-3 mb-5">
+
+  <section class="mx-auto mb-0 p-1 card" style="width: 50rem; height: 25rem;">
+    <div class="row">
+      <div class="col-md-5">
+        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMDAxMjBfMjU5/MDAxNTc5NDY4NzQ2OTA2.45inocdoeaT5D6hAS-0LFCWHEHCCGsBEXPrY7fBPVAAg.Z24pQoPjt4alydbZpwoKXqZwm3CQafTOZP3nZL0DEMIg.JPEG.skil666/IMG_20190903_002601.jpg?type=w800" class="img-fluid rounded" alt="sample">
+      </div>
+      
+      <div class="col-md-7" id="update-parent">
+        <div class="card-body p-5">
+          <p class="card-title fs-3 fw-bold mb-3">{{ user.name }}의 Profile</p>
+          <div class="pt-5">
+            <div class="d-inline-flex">
+              <i class="fas fa-check mx-1 mt-1 d-inline-flex">
+              </i>
+              <h5 class="mb-3 mx-3">{{ user.emp_team }} 팀</h5>
+            </div>
+            <br>
+            <div class="d-inline-flex">
+              <i class="fas fa-check mx-1 mt-1">
+              </i>
+              <h5 class="mb-3 mx-3">사원번호: {{ user.emp_id }}</h5>
+            </div>
+            <br>
+            <div class="d-inline-flex">
+              <i class="fas fa-check mx-1 mt-1">
+              </i>
+              <h5 class="mb-3 mx-3">입사일: {{ user.emp_date }}</h5>
+            </div>
+            <div class="d-inline-flex">
+              <i class="fas fa-check mx-1 mt-1">
+              </i>
+              <h5 class="mb-3 mx-3">직급: {{ user.emp_grade }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
+
+
+
+        <form action="{% url 'accounts:delete' %}" method="POST" class="ms-2">
+          {% csrf_token %}
+          <button class="btn btn-outline-danger" type="submit">회원 탈퇴</button>
+        </form>
