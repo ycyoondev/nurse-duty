@@ -198,7 +198,7 @@ def event(request, event_id=None):
     for user_pk in range(1, nurse_num+1): 
         nurse = get_object_or_404(get_user_model(), pk=user_pk)
         user_duty = dutys[user_pk]
-        for idx in range(1, len(user_duty)+1): # ['','D','O','E',...]
+        for idx in range(len(user_duty)): # ['','D','O','E',...]
             start_time = f"2021-{month}-{idx+1}"
             if user_duty[idx] == 'D':
                 title = 'Day'
